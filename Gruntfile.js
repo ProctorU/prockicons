@@ -11,7 +11,7 @@ module.exports = function(grunt) {
       options: {},
       dist: {
         files: {
-          'build/octicons.min.css': 'build/octicons.css'
+          'build/prockicons.min.css': 'build/prockicons.css'
         }
       }
     },
@@ -46,12 +46,12 @@ module.exports = function(grunt) {
         includeTitleElement: false,
         inheritviewbox: true,
         includedemo: function(arg) {
-          var octicons = require("./index.js")
+          var prockicons = require("./index.js")
 
           var icons = function() {
             var result = []
-            Object.keys(octicons).forEach(function(key){
-              result.push("<div style=\"width: 10%;min-width: 100px;flex: 0 0 auto;box-sizing:border-box;padding:1em;text-align:center;\">" + octicons[key].toSVGUse({ height: 32 }) + "<div>" + key + "</div></div>")
+            Object.keys(prockicons).forEach(function(key){
+              result.push("<div style=\"width: 10%;min-width: 100px;flex: 0 0 auto;box-sizing:border-box;padding:1em;text-align:center;\">" + prockicons[key].toSVGUse({ height: 32 }) + "<div>" + key + "</div></div>")
             })
             return result.join("\n")
           }
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
   <head>
     <meta charset="utf-8">
     <title>Octicons Spritesheet test</title>
-    <link rel="stylesheet" href="./octicons.css" media="screen" title="no title">
+    <link rel="stylesheet" href="./prockicons.css" media="screen" title="no title">
     <style>
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -85,7 +85,7 @@ module.exports = function(grunt) {
       },
       default: {
         files: {
-          "build/sprite.octicons.svg": ['build/svg/*.svg']
+          "build/sprite.prockicons.svg": ['build/svg/*.svg']
         }
       },
     },
@@ -98,8 +98,8 @@ module.exports = function(grunt) {
 
     copy: {
       css: {
-        src: "lib/octicons.css",
-        dest: "build/octicons.css"
+        src: "lib/prockicons.css",
+        dest: "build/prockicons.css"
       }
     }
   });
@@ -126,6 +126,7 @@ module.exports = function(grunt) {
       var key = path.basename(file, ".svg")
       if (data[key]) {
         var raw = svg.toString()
+        console.log(/<path.+\/>/g.exec(raw))
         data[key].path = /<path.+\/>/g.exec(raw)[0]
         data[key].height = /height="(\d+)"/g.exec(raw)[1]
         data[key].width = /width="(\d+)"/g.exec(raw)[1]
